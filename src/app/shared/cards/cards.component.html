@@ -1,1 +1,17 @@
-<p>cards works!</p>
+<div class="snippet-card-container">
+  <div *ngFor="let card of cards" class="snippet-card">
+    <ng-container *ngIf="card.mediaType === 'image'; else videoContent">
+      <img [src]="card.mediaUrl" alt="Media" class="card-img-top">
+    </ng-container>
+    <ng-template #videoContent>
+      <video controls class="card-img-top">
+        <source [src]="card.mediaUrl" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+      </video>
+    </ng-template>
+    <div class="card-info">
+      <p>{{ card.info }}</p>
+    </div>
+  </div>
+</div>
+

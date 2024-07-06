@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+// cards.component.ts
+
+import { Component, Input, OnInit } from '@angular/core';
+import { Card } from 'src/app/shared/interfaces/INasa.Interface';
 
 @Component({
   selector: 'app-cards',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
+  @Input() cards: Card[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    
   }
-
 }

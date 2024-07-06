@@ -1,0 +1,81 @@
+body {
+    background: linear-gradient(180deg, #000, #111);
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+  }
+  
+  .btn-dark {
+    background-color: #000;
+    border: none;
+  }
+  
+  .btn-secondary {
+    background-color: #555;
+    border: none;
+  }
+  
+  .snippet-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+  }
+  
+  .snippet-card .btn {
+    margin: 5px 0;
+  }
+  
+  .snippet-card .btn-sm {
+    width: 100px;
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-google {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+
+  }
+  
+  .btn-google:hover {
+    background-color: #f7f7f7;
+  }
+  
+  .google-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  @media (min-width: 381px) {
+    .btn-google {
+      margin-bottom: unset;
+    }
+  }
+
+  @media (min-width: 70px) {
+    .btn-google {
+      margin-right: 15px;
+
+    }
+  }

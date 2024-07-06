@@ -1,0 +1,37 @@
+.snippet-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.snippet-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.snippet-card img {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+.snippet-card .card-info {
+  margin-top: 10px;
+}
+
+
+.snippet-card .play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.snippet-card .play-icon i {
+  font-size: 4rem;
+}

@@ -1,3 +1,14 @@
-<div class="alert alert-primary" role="alert">
-    A simple primary alert—check it out!
+<div class="container text-center py-5">
+  <h1>Collection of recent photos and videos.</h1>
+  <p class="lead">
+    A beautiful place to see the most recent images and videos from NASA.
+  </p>
+  <div class="my-4 ">
+    <button class="btn btn-google">
+      <img src="/assets/images/google-icon.svg" alt="Google logo" class="google-logo">
+      Sign in with Google
+    </button>
+    <button class="btn btn-secondary">Pending</button>
   </div>
+  <app-cards [cards]="cards"></app-cards>
+</div>

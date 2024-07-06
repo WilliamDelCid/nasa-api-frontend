@@ -14,6 +14,11 @@ import { ButtonComponent } from './button/button.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports:[
+    CardsComponent,
+    InputComponent,
+    ButtonComponent
   ]
 })
 export class SharedModule { }
