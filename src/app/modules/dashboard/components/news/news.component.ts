@@ -22,12 +22,10 @@ export class NewsComponent implements OnInit {
   }
 
   onFilterChanged(filter: { type: string, checked: boolean }) {
-    console.log(filter);
     this.filterChanged.emit(filter);
   }
 
   onSearchTextChanged(searchText: string): void {
-    console.log(searchText);
     this.searchTextChanged.emit(searchText);
   }
 
