@@ -1,5 +1,3 @@
-// cards.component.ts
-
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from 'src/app/shared/interfaces/INasa.Interface';
 
@@ -10,7 +8,7 @@ import { Card } from 'src/app/shared/interfaces/INasa.Interface';
 })
 export class CardsComponent implements OnInit {
   @Input() cards: Card[] = [];
-
+  @Input() favorite: boolean  = false;
   constructor() { }
 
   ngOnInit(): void {

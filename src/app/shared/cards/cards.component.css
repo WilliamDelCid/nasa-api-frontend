@@ -35,3 +35,31 @@
 .snippet-card .play-icon i {
   font-size: 4rem;
 }
+
+.snippet-card {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  width: 20px; 
+  height: 20px;
+  z-index: 1;
+  display: block;
+}
+
+

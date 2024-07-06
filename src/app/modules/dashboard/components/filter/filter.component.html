@@ -1,1 +1,11 @@
-<p>filter works!</p>
+<div class="filter-container">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" id="imagesCheck" (change)="onCheckboxChange('image', $event)">
+      <label class="form-check-label" for="imagesCheck">Imágenes</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" id="videosCheck" (change)="onCheckboxChange('video', $event)">
+      <label class="form-check-label" for="videosCheck">Videos</label>
+    </div>
+  </div>
+  

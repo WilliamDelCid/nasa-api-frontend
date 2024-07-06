@@ -21,30 +21,7 @@ body {
     background-color: #555;
     border: none;
   }
-  
-  .snippet-card {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    width: 150px;
-    text-align: center;
-  }
-  
-  .snippet-card .btn {
-    margin: 5px 0;
-  }
-  
-  .snippet-card .btn-sm {
-    width: 100px;
-  }
-  
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+
   .btn-google {
     background-color: #fff;
     color: #000;

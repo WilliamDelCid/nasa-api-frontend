@@ -1,8 +1,9 @@
 <div class="snippet-card-container">
   <div *ngFor="let card of cards" class="snippet-card">
-    <ng-container *ngIf="card.mediaType === 'image'; else videoContent">
+    <div class="image-container" *ngIf="card.mediaType === 'image'; else videoContent">
       <img [src]="card.mediaUrl" alt="Media" class="card-img-top">
-    </ng-container>
+      <button class="icon-button" *ngIf="favorite" >x</button>
+    </div>
     <ng-template #videoContent>
       <video controls class="card-img-top">
         <source [src]="card.mediaUrl" type="video/mp4">
@@ -14,4 +15,3 @@
     </div>
   </div>
 </div>
-

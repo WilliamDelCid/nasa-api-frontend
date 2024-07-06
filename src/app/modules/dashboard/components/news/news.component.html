@@ -1,1 +1,7 @@
-<p>news works!</p>
+<ng-container *ngIf="showInput">
+  <app-search (searchTextChanged)="onSearchTextChanged($event)"></app-search>
+</ng-container>
+<ng-container *ngIf="showFilter">
+  <app-filter (filterChanged)="onFilterChanged($event)"></app-filter>
+</ng-container>
+<app-cards [cards]="cards"></app-cards>
