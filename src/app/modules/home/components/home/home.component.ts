@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit {
         data.collection.items.forEach((nasaImage: NASAImageItem) => {
 
           if (nasaImage.links && nasaImage.links.length > 0) {
-            const mediaUrl = this.extractMediaUrl(nasaImage.links);
-            const captionsUrl = this.extractCaptionsUrl(nasaImage.links);
-            const mediaType = this.determineMediaType(nasaImage);
+            const mediaUrl = this.homeService.extractMediaUrl(nasaImage.links);
+            const captionsUrl = this.homeService.extractCaptionsUrl(nasaImage.links);
+            const mediaType = this.homeService.determineMediaType(nasaImage);
             
             if (mediaUrl && mediaType) {
               this.cards.push({
@@ -41,24 +41,5 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  private extractMediaUrl(links: any[]): string | undefined {
-    const videoLink = links.find(link => link.rel === 'preview_video' || link.rel === 'preview');
-    return videoLink?.href;
-  }
 
-  private extractCaptionsUrl(links: any[]): string | undefined {
-    const captionsLink = links.find(link => link.rel === 'captions');
-        
-    return captionsLink?.href;
-  }
-
-  private determineMediaType(nasaImage: NASAImageItem): 'image' | 'video' | undefined {
-    if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
-      const firstData = nasaImage.data[0];
-      return firstData.media_type === 'image' ? 'image' : 'video';
-    } else if (nasaImage.data && !Array.isArray(nasaImage.data)) {
-      return nasaImage.data.media_type === 'image' ? 'image' : 'video';
-    }
-    return undefined;
-  }
 }

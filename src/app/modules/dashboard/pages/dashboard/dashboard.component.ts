@@ -1,64 +1,72 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '@home/services/home.service';
+import { DashboardService } from '@dashboard/services/dashboard.service';
 import { Card, NASAImage, NASAImageItem } from 'src/app/shared/interfaces/INasa.Interface';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  nasaImages: NASAImageItem[] = [];
   cards: Card[] = [];
+  searchText = '';
+  filters: { type: string, checked: boolean }[] = [];
 
-  constructor(private homeService: HomeService) { }
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
-    this.homeService.getRecentPosts().subscribe(
-      (data: NASAImage) => {
-        
-        data.collection.items.forEach((nasaImage: NASAImageItem) => {
+    this.getPosts();
+  }
 
-          if (nasaImage.links && nasaImage.links.length > 0) {
-            const mediaUrl = this.extractMediaUrl(nasaImage.links);
-            const captionsUrl = this.extractCaptionsUrl(nasaImage.links);
-            const mediaType = this.determineMediaType(nasaImage);
-            
-            if (mediaUrl && mediaType) {
-              this.cards.push({
-                mediaUrl: mediaUrl,
-                info: nasaImage.data.title || '', 
-                mediaType: mediaType,
-                captionsUrl: captionsUrl 
-              });
-            }
+  getPosts(): void {
+    this.cards = [];
+    const hasFilters = this.filters.some(filter => filter.checked);
+    const applyFilters = (nasaImage: NASAImageItem) => {
+      const mediaType = this.dashboardService.determineMediaType(nasaImage);
+      return !hasFilters || (mediaType && this.filters.some(filter => filter.type === mediaType && filter.checked));
+    };
+
+    const handleData = (data: NASAImage) => {
+      data.collection.items.forEach((nasaImage: NASAImageItem) => {
+        if (nasaImage.links && nasaImage.links.length > 0 && applyFilters(nasaImage)) {
+          const mediaUrl = this.dashboardService.extractMediaUrl(nasaImage.links);
+          const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
+          const mediaType = this.dashboardService.determineMediaType(nasaImage);
+          if (mediaUrl && mediaType) {
+            this.cards.push({
+              mediaUrl,
+              info: nasaImage.data.title || '',
+              mediaType,
+              captionsUrl
+            });
           }
-        });
-      },
-      (error) => {
-        console.error('Error al obtener datos:', error);
-      }
-    );
-  }
+        }
+      });
+    };
 
-  private extractMediaUrl(links: any[]): string | undefined {
-    const videoLink = links.find(link => link.rel === 'preview_video' || link.rel === 'preview');
-    return videoLink?.href;
-  }
+    const handleError = (error: any) => {
+      console.error('Error al obtener datos:', error);
+    };
 
-  private extractCaptionsUrl(links: any[]): string | undefined {
-    const captionsLink = links.find(link => link.rel === 'captions');
-        
-    return captionsLink?.href;
-  }
-
-  private determineMediaType(nasaImage: NASAImageItem): 'image' | 'video' | undefined {
-    if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
-      const firstData = nasaImage.data[0];
-      return firstData.media_type === 'image' ? 'image' : 'video';
-    } else if (nasaImage.data && !Array.isArray(nasaImage.data)) {
-      return nasaImage.data.media_type === 'image' ? 'image' : 'video';
+    if (this.searchText === '') {
+      this.dashboardService.getRecentPosts().subscribe(handleData, handleError);
+    } else {
+      this.dashboardService.getSearchPost(this.searchText).subscribe(handleData, handleError);
     }
-    return undefined;
   }
-  
+
+  onFilterChanged(filter: { type: string, checked: boolean }): void {
+    const existingFilter = this.filters.find(f => f.type === filter.type);
+    if (existingFilter) {
+      existingFilter.checked = filter.checked;
+    } else {
+      this.filters.push(filter);
+    }
+    this.getPosts();
+  }
+
+  onSearchTextChanged(searchText: string): void {
+    this.searchText = searchText;
+    this.getPosts();
+  }
 }

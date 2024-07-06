@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import { Card } from 'src/app/shared/interfaces/INasa.Interface';
 
 @Component({
@@ -10,23 +10,24 @@ export class NewsComponent implements OnInit {
   @Input() cards: Card[] = [];
   @Input() showFilter: boolean = false;
   @Input() showInput: boolean = false;
+
+  @Output() filterChanged = new EventEmitter<{ type: string, checked: boolean }>();
+  @Output() searchTextChanged = new EventEmitter<string>();
+
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-
   onFilterChanged(filter: { type: string, checked: boolean }) {
     console.log(filter);
-    
-    if (filter.checked) {
-    } else {
-    }
+    this.filterChanged.emit(filter);
   }
 
   onSearchTextChanged(searchText: string): void {
     console.log(searchText);
+    this.searchTextChanged.emit(searchText);
   }
-
 
 }

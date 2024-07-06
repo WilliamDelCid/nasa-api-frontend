@@ -3,7 +3,12 @@
     <p class="lead">
       A beautiful place to see the most recent images and videos from NASA.
     </p>
-    <app-news [cards]="cards"  [showFilter]="true" [showInput]="true"></app-news>
-
+    <app-news 
+    [cards]="cards"  
+    [showFilter]="true" 
+    [showInput]="true" 
+    (filterChanged)="onFilterChanged($event)" 
+    (searchTextChanged)="onSearchTextChanged($event)">
+  </app-news>
   </div>
   
