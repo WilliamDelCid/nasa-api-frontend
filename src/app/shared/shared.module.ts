@@ -1,16 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardsComponent } from './cards/cards.component';
-import { InputComponent } from './input/input.component';
-import { ButtonComponent } from './button/button.component';
-
-
+import { NgModule } from '@angular/core';
+import { CardsComponent } from './components/cards/cards.component';
+import { InputComponent } from './components/input/input.component';
+import { SortComponent } from './components/sort/sort.component';
 
 @NgModule({
   declarations: [
     CardsComponent,
     InputComponent,
-    ButtonComponent
+    SortComponent,
   ],
   imports: [
     CommonModule
@@ -18,7 +16,7 @@ import { ButtonComponent } from './button/button.component';
   exports:[
     CardsComponent,
     InputComponent,
-    ButtonComponent
+    SortComponent
   ]
 })
 export class SharedModule { }

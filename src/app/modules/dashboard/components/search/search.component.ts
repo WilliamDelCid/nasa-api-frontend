@@ -15,4 +15,6 @@ export class SearchComponent implements OnInit {
   handleSearch(value: string): void {
     this.searchTextChanged.emit(value);
   }
+
+  
 }

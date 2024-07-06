@@ -1,0 +1,7 @@
+<div class="input-group mb-3 input-style">
+    <input type="text" class="form-control" placeholder="Buscar..." (keyup.enter)="handleInput($event)">
+    <div class="input-group-append" *ngIf="hasText()">
+      <button class="btn btn-outline-secondary" type="button" (click)="clearInput()">Limpiar</button>
+    </div>
+  </div>
+  

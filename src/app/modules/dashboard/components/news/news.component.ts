@@ -13,6 +13,7 @@ export class NewsComponent implements OnInit {
 
   @Output() filterChanged = new EventEmitter<{ type: string, checked: boolean }>();
   @Output() searchTextChanged = new EventEmitter<string>();
+  @Output() sortChanged = new EventEmitter<string>();
 
 
   constructor() { }
@@ -29,5 +30,11 @@ export class NewsComponent implements OnInit {
     console.log(searchText);
     this.searchTextChanged.emit(searchText);
   }
+
+  onSortChanged(sortOption:string): void {
+   this.sortChanged.emit(sortOption);
+  }
+
+  
 
 }

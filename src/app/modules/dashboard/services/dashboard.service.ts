@@ -20,6 +20,11 @@ export class DashboardService {
     return this.httpClient.get<NASAImage>(`${this.baseUrl}/asset/?orderby=recent`);
   }
 
+  getPopularPosts(): Observable<NASAImage> {
+    return this.httpClient.get<NASAImage>(`${this.baseUrl}/asset/?orderby=popular`);
+  }
+
+
   extractMediaUrl(links: any[]): string | undefined {
     const videoLink = links.find(link => link.rel === 'preview_video' || link.rel === 'preview');
     return videoLink?.href;

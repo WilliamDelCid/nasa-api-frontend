@@ -10,5 +10,8 @@
     </button>
     <button class="btn btn-secondary">Pending</button>
   </div>
-  <app-news [cards]="cards" [showFilter]="false" [showInput]="false"></app-news>
+  <app-news [cards]="cards" [showFilter]="false" [showInput]="false"
+  (sortChanged)="onSortChanged($event)"
+
+  ></app-news>
 </div>

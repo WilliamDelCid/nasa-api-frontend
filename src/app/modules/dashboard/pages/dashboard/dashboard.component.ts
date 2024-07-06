@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NewsComponent } from '@dashboard/components/news/news.component';
 import { DashboardService } from '@dashboard/services/dashboard.service';
 import { Card, NASAImage, NASAImageItem } from 'src/app/shared/interfaces/INasa.Interface';
 
@@ -11,7 +12,8 @@ export class DashboardComponent implements OnInit {
   cards: Card[] = [];
   searchText = '';
   filters: { type: string, checked: boolean }[] = [];
-
+  sortOrder: string = '';
+  @ViewChild(NewsComponent) newsComponent!: NewsComponent;
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class DashboardComponent implements OnInit {
       console.error('Error al obtener datos:', error);
     };
 
-    if (this.searchText === '') {
+    if (this.searchText === '' ) {
       this.dashboardService.getRecentPosts().subscribe(handleData, handleError);
     } else {
       this.dashboardService.getSearchPost(this.searchText).subscribe(handleData, handleError);
@@ -62,11 +64,60 @@ export class DashboardComponent implements OnInit {
     } else {
       this.filters.push(filter);
     }
-    this.getPosts();
+    if (this.sortOrder === 'recents' || this.sortOrder === 'popular' ) {
+      this.getPostsRecentsPopular();
+    } else if (this.searchText !== '' || this.searchText !== undefined || this.searchText !== null) {
+      this.getPosts();
+    }
   }
 
   onSearchTextChanged(searchText: string): void {
     this.searchText = searchText;
+    this.sortOrder = '';
     this.getPosts();
   }
+
+  onSortChanged(sortOption:string): void {
+    this.sortOrder = sortOption as 'recents' | 'popular';
+    this.getPostsRecentsPopular();
+  }
+
+  getPostsRecentsPopular(): void {
+    this.cards = [];
+    const hasFilters = this.filters.some(filter => filter.checked);
+    const applyFilters = (nasaImage: NASAImageItem) => {
+      const mediaType = this.dashboardService.determineMediaType(nasaImage);
+      return !hasFilters || (mediaType && this.filters.some(filter => filter.type === mediaType && filter.checked));
+    };
+
+    const handleData = (data: NASAImage) => {
+      data.collection.items.forEach((nasaImage: NASAImageItem) => {
+        if (nasaImage.links && nasaImage.links.length > 0 && applyFilters(nasaImage)) {
+          const mediaUrl = this.dashboardService.extractMediaUrl(nasaImage.links);
+          const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
+          const mediaType = this.dashboardService.determineMediaType(nasaImage);
+          if (mediaUrl && mediaType) {
+            this.cards.push({
+              mediaUrl,
+              info: nasaImage.data.title || '',
+              mediaType,
+              captionsUrl
+            });
+          }
+        }
+      });
+    };
+
+    const handleError = (error: any) => {
+      console.error('Error al obtener datos:', error);
+    };
+
+    if (this.sortOrder === 'recents') {
+      this.dashboardService.getRecentPosts().subscribe(handleData, handleError);
+    } else {
+      this.dashboardService.getPopularPosts().subscribe(handleData, handleError);
+    }
+  }
+  
+
 }

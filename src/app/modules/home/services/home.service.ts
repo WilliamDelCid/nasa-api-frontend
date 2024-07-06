@@ -12,7 +12,11 @@ export class HomeService {
 
 
   getRecentPosts(): Observable<NASAImage> {
-    return this.httpClient.get<NASAImage>(this.baseUrl+'/asset/?orderby=recent');
+    return this.httpClient.get<NASAImage>(`${this.baseUrl}/asset/?orderby=recent`);
+  }
+
+  getPopularPosts(): Observable<NASAImage> {
+    return this.httpClient.get<NASAImage>(`${this.baseUrl}/asset/?orderby=popular`);
   }
 
   // getVideo(collections:string):Observable<string[]>{

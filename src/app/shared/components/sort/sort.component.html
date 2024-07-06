@@ -1,0 +1,4 @@
+<div class="btn-group">
+  <button type="button" class="btn" [ngClass]="{'btn-secondary': sortByOption === 'recents'}" (click)="sortBy('recents')">Recents</button>
+  <button type="button" class="btn" [ngClass]="{'btn-secondary': sortByOption === 'popular'}" (click)="sortBy('popular')">Popular</button>
+</div>

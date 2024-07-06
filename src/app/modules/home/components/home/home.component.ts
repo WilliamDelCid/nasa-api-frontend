@@ -10,6 +10,7 @@ import { NASAImage, NASAImageItem, NASAImageData, Card } from 'src/app/shared/in
 export class HomeComponent implements OnInit {
   nasaImages: NASAImageItem[] = [];
   cards: Card[] = [];
+  sortOrder: string = '';
 
   constructor(private homeService: HomeService) { }
 
@@ -40,6 +41,39 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+  onSortChanged(sortOption:string): void {
+    this.sortOrder = sortOption as 'recents' | 'popular';
+    this.getPostsRecentsPopular();
+  }
+  getPostsRecentsPopular(): void {
+    this.cards = [];
+    const handleData = (data: NASAImage) => {
+      data.collection.items.forEach((nasaImage: NASAImageItem) => {
+        if (nasaImage.links && nasaImage.links.length > 0) {
+          const mediaUrl = this.homeService.extractMediaUrl(nasaImage.links);
+          const captionsUrl = this.homeService.extractCaptionsUrl(nasaImage.links);
+          const mediaType = this.homeService.determineMediaType(nasaImage);
+          if (mediaUrl && mediaType) {
+            this.cards.push({
+              mediaUrl,
+              info: nasaImage.data.title || '',
+              mediaType,
+              captionsUrl
+            });
+          }
+        }
+      });
+    };
 
+    const handleError = (error: any) => {
+      console.error('Error al obtener datos:', error);
+    };
+
+    if (this.sortOrder === 'recents') {
+      this.homeService.getRecentPosts().subscribe(handleData, handleError);
+    } else {
+      this.homeService.getPopularPosts().subscribe(handleData, handleError);
+    }
+  }
 
 }

@@ -1,7 +1,8 @@
 <ng-container *ngIf="showInput">
-  <app-search (searchTextChanged)="onSearchTextChanged($event)"></app-search>
+  <app-search  (searchTextChanged)="onSearchTextChanged($event)"></app-search>
 </ng-container>
 <ng-container *ngIf="showFilter">
   <app-filter (filterChanged)="onFilterChanged($event)"></app-filter>
 </ng-container>
+<app-sort (sortChanged)="onSortChanged($event)"></app-sort>
 <app-cards [cards]="cards"></app-cards>
