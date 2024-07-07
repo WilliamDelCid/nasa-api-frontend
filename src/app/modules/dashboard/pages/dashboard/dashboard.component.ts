@@ -61,11 +61,8 @@ export class DashboardComponent implements OnInit {
               iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
             : 'assets/images/heart-like-outline.svg',
             description: firstData.description
-
             });           
             }
-
-
           }
         }
       });
@@ -134,11 +131,8 @@ export class DashboardComponent implements OnInit {
               iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
             : 'assets/images/heart-like-outline.svg',
             description: firstData.description
-
             });           
             }
-
-
           }
         }
       });

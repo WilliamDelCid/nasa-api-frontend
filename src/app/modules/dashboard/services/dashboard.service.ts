@@ -38,6 +38,8 @@ export class DashboardService {
   }
 
   determineMediaType(nasaImage: NASAImageItem): 'image' | 'video' | undefined {
+    console.log(nasaImage);
+    
     if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
       const firstData = nasaImage.data[0];
       return firstData.media_type === 'image' ? 'image' : 'video';
