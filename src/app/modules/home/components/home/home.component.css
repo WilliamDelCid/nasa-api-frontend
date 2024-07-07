@@ -1,65 +1,100 @@
-body {
-    background: linear-gradient(180deg, #000, #111);
-    color: white;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-  }
-  
-  .lead {
-    font-size: 1.25rem;
-  }
-  
-  .btn-dark {
-    background-color: #000;
-    border: none;
-  }
-  
-  .btn-secondary {
-    background-color: #555;
-    border: none;
-  }
 
+h1 {
+  font-size: 2.5rem;
+  color: var(--bg-font-color);
+}
+
+.lead {
+  font-size: 1.25rem;
+  color: var(--bg-font-color);
+
+}
+
+.btn-dark {
+  background-color: #000;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #555;
+  border: none;
+}
+
+.btn-google {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-right: 5px;
+
+}
+
+.btn-google:hover {
+  background-color: #f7f7f7;
+}
+
+.google-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
+
+.btn-show-more-post {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 50px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+
+}
+
+.btn-show-more-post img{
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.news-container{
+  max-height: 900px;
+  overflow: hidden;
+  position: relative;
+  z-index: -9;
+}
+
+
+@media (min-width: 381px) {
   .btn-google {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    margin-right: 5px;
+    margin-bottom: unset;
+  }
+}
+
+@media (min-width: 70px) {
+  .btn-google {
+    margin-right: 15px;
 
   }
-  
-  .btn-google:hover {
-    background-color: #f7f7f7;
-  }
-  
-  .google-logo {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
+}
 
-  @media (min-width: 381px) {
-    .btn-google {
-      margin-bottom: unset;
-    }
-  }
-
-  @media (min-width: 70px) {
-    .btn-google {
-      margin-right: 15px;
-
-    }
-  }
-
-  .display-change{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
+.display-change{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

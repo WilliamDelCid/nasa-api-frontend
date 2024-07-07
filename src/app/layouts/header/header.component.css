@@ -1,0 +1,21 @@
+.navbar{
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.navbar ul{
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar ul li a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+    text-decoration: none;
+}

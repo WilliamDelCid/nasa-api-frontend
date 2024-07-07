@@ -41,8 +41,9 @@ export class HomeComponent implements OnInit {
 
     this.homeService.getRecentPosts().subscribe(
       (data: NASAImage) => {
+        const items = data.collection.items.slice(0, 9);
         
-        data.collection.items.forEach((nasaImage: NASAImageItem) => {
+        items.forEach((nasaImage: NASAImageItem) => {
 
           if (nasaImage.links && nasaImage.links.length > 0) {
             const mediaUrl = this.homeService.extractMediaUrl(nasaImage.links);

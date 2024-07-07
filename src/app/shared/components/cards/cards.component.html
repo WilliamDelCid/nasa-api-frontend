@@ -1,17 +1,19 @@
 <div class="snippet-card-container">
   <div *ngFor="let card of cards" class="snippet-card">
+    <button (click)="addToMyWishList(card)" class="icon-button" *ngIf="favoriteShow">
+      <img [src]="card.iconFavorite ? card.iconFavorite: 'assets/images/heart-like-outline.svg'" alt="icon favorite">
+    </button>
     <div class="image-container" *ngIf="card.mediaType === 'image'; else videoContent">
-      <img [src]="card.mediaUrl" alt="Media" class="card-img-top">
-      <button class="icon-button" *ngIf="favorite" >x</button>
+        <img [src]="card.mediaUrl" alt="Media" class="card-img-top">
     </div>
     <ng-template #videoContent>
+     <div class="image-container">
       <video controls class="card-img-top">
         <source [src]="card.mediaUrl" type="video/mp4">
         Tu navegador no soporta el elemento de video.
       </video>
+     </div>
     </ng-template>
-    <div class="card-info">
-      <p>{{ card.info }}</p>
-    </div>
+
   </div>
 </div>

@@ -1,14 +1,28 @@
+<div class="custom-background"></div>
+
+<div class="fade-footer"></div>
+
 <div class="container text-center py-5">
   <h1>Collection of recent photos and videos.</h1>
   <p class="lead">
     A beautiful place to see the most recent images and videos from NASA.
   </p>
-  <div class="my-4 display-change">
-   <div id="google-btn">
+  <div class="my-4 display-change ">
+    <div id="google-btn">
 
-   </div>
+    </div>
   </div>
+<div class="news-container">
   <app-news [cards]="cards" [showFilter]="false" [showInput]="false"
   (sortChanged)="onSortChanged($event)"
   ></app-news>
+</div>
+
+<div class="footer">
+  <button class="btn-show-more-post">
+   
+    Show more post from <img src="assets/images/nasa-6.svg" alt="nasa icon">
+  </button>
+
+</div>
 </div>

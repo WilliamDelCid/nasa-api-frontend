@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Card } from 'src/app/shared/interfaces/INasa.Interface';
+import { Card } from '../../interfaces/INasa.Interface';
 
 @Component({
   selector: 'app-cards',
@@ -8,10 +8,18 @@ import { Card } from 'src/app/shared/interfaces/INasa.Interface';
 })
 export class CardsComponent implements OnInit {
   @Input() cards: Card[] = [];
-  @Input() favorite: boolean  = false;
+  @Input() favoriteShow: boolean  = true;
+  
+  
   constructor() { }
 
   ngOnInit(): void {
     
   }
+
+  addToMyWishList(card: Card) {
+    card.favorite = !card.favorite;
+    card.iconFavorite = card.favorite ? 'assets/images/heart-like-filled.svg' : 'assets/images/heart-like-outline.svg';
+  }
+
 }

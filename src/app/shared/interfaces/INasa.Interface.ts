@@ -31,4 +31,6 @@ export interface NASAImage {
     info: string;
     mediaType: string;
     captionsUrl?: string; 
+    favorite?: boolean;
+    iconFavorite?: string;
   }
