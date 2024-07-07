@@ -4,14 +4,12 @@
     A beautiful place to see the most recent images and videos from NASA.
   </p>
   <div class="my-4 ">
-    <button class="btn btn-google">
-      <img src="/assets/images/google-icon.svg" alt="Google logo" class="google-logo">
-      Sign in with Google
-    </button>
+   <div id="google-btn">
+
+   </div>
     <button class="btn btn-secondary">Pending</button>
   </div>
   <app-news [cards]="cards" [showFilter]="false" [showInput]="false"
   (sortChanged)="onSortChanged($event)"
-
   ></app-news>
 </div>

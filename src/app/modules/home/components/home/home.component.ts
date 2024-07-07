@@ -1,6 +1,9 @@
+declare var google: any;
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeService } from '@home/services/home.service';
 import { NASAImage, NASAImageItem, NASAImageData, Card } from 'src/app/shared/interfaces/INasa.Interface';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +14,31 @@ export class HomeComponent implements OnInit {
   nasaImages: NASAImageItem[] = [];
   cards: Card[] = [];
   sortOrder: string = '';
-
-  constructor(private homeService: HomeService) { }
+  clientId:string = environment.client_id;
+  constructor(private homeService: HomeService,private router:Router) { }
 
   ngOnInit(): void {
+
+    google.accounts.id.initialize({
+      client_id:this.clientId,
+      callback:(resp:any)=> this.handleLogin(resp)
+    });
+
+    google.accounts.id.renderButton(document.getElementById('google-btn'), {
+      theme: 'outline',
+      size: 'large',
+      text: 'continue_with',
+      width: '240',
+      height: '50',
+      longtitle: true,
+      onsuccess: (resp:any)=>{
+        console.log('Respuesta',resp);
+      },
+      onfailure: (resp:any)=>{
+        console.log('Respuesta',resp);
+      }
+    });
+
     this.homeService.getRecentPosts().subscribe(
       (data: NASAImage) => {
         
@@ -41,10 +65,12 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
   onSortChanged(sortOption:string): void {
     this.sortOrder = sortOption as 'recents' | 'popular';
     this.getPostsRecentsPopular();
   }
+
   getPostsRecentsPopular(): void {
     this.cards = [];
     const handleData = (data: NASAImage) => {
@@ -73,6 +99,18 @@ export class HomeComponent implements OnInit {
       this.homeService.getRecentPosts().subscribe(handleData, handleError);
     } else {
       this.homeService.getPopularPosts().subscribe(handleData, handleError);
+    }
+  }
+
+  private decodeToken(token: string): any {
+    return JSON.parse(atob(token.split('.')[1]));
+  }
+
+  handleLogin(response:any){
+    if (response) {
+      const payLoad = this.decodeToken(response.credential);
+      sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
+      this.router.navigate(['/dashboard']);
     }
   }
 

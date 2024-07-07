@@ -1,8 +1,10 @@
+declare var google:any;
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { NASAImage, NASAImageItem } from 'src/app/shared/interfaces/INasa.Interface';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ import { Observable } from 'rxjs';
 export class DashboardService {
   private baseUrl: string = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private route:Router) { }
 
   getSearchPost(search: string): Observable<NASAImage> {
     return this.httpClient.get<NASAImage>(`${this.baseUrl}/search?q=${search}`);
@@ -44,4 +46,11 @@ export class DashboardService {
     }
     return undefined;
   }
+
+  signOut(){
+    google.accounts.id.disableAutoSelect();
+    sessionStorage.removeItem('loggedInUser');
+    this.route.navigate(['/']);
+  }
+
 }
