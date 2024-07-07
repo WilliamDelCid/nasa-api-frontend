@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from '../../interfaces/INasa.Interface';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cards',
@@ -9,9 +10,14 @@ import { Card } from '../../interfaces/INasa.Interface';
 export class CardsComponent implements OnInit {
   @Input() cards: Card[] = [];
   @Input() favoriteShow: boolean  = true;
-  
-  constructor() { }
+  modalRef: NgbModalRef | undefined;
+  card:Card | undefined;
+  constructor(private modalService: NgbModal) {}
 
+  openModal(content: any, card: Card) {
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.card = card;
+  }
   ngOnInit(): void {
     
   }
@@ -49,6 +55,8 @@ export class CardsComponent implements OnInit {
     } else {
         card.favorite = true;
         card.iconFavorite = 'assets/images/heart-like-filled.svg';
+        card.description = card.description;
+        card.info = card.info;
         userWishList.push(card);
     }
 

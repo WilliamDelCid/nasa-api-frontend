@@ -49,16 +49,23 @@ export class DashboardComponent implements OnInit {
           const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
           const mediaType = this.dashboardService.determineMediaType(nasaImage);
           if (mediaUrl && mediaType) {
+            if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
+            const firstData = nasaImage.data[0];   
             const isFavorite = this.favoriteMediaUrls.includes(mediaUrl);
             this.cards.push({
               mediaUrl,
-              info: nasaImage.data.title || '',
+              info: firstData.title || '',
               mediaType,
               captionsUrl,
               favorite: isFavorite,
               iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
-            : 'assets/images/heart-like-outline.svg'
-            });
+            : 'assets/images/heart-like-outline.svg',
+            description: firstData.description
+
+            });           
+            }
+
+
           }
         }
       });
@@ -115,16 +122,23 @@ export class DashboardComponent implements OnInit {
           const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
           const mediaType = this.dashboardService.determineMediaType(nasaImage);
           if (mediaUrl && mediaType) {
+            if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
+            const firstData = nasaImage.data[0];   
             const isFavorite = this.favoriteMediaUrls.includes(mediaUrl);
             this.cards.push({
               mediaUrl,
-              info: nasaImage.data.title || '',
+              info: firstData.title || '',
               mediaType,
               captionsUrl,
               favorite: isFavorite,
               iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
-            : 'assets/images/heart-like-outline.svg'
-            });
+            : 'assets/images/heart-like-outline.svg',
+            description: firstData.description
+
+            });           
+            }
+
+
           }
         }
       });

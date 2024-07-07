@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CardsComponent } from './components/cards/cards.component';
 import { InputComponent } from './components/input/input.component';
 import { SortComponent } from './components/sort/sort.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,7 @@ import { SortComponent } from './components/sort/sort.component';
     SortComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,NgbModalModule
   ],
   exports:[
     CardsComponent,

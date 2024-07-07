@@ -3,17 +3,32 @@
     <button (click)="addToMyWishList(card)" class="icon-button" *ngIf="favoriteShow">
       <img [src]="card.iconFavorite ? card.iconFavorite: 'assets/images/heart-like-outline.svg'" alt="icon favorite">
     </button>
-    <div class="image-container" *ngIf="card.mediaType === 'image'; else videoContent">
+    <div class="image-container" *ngIf="card.mediaType === 'image'; else videoContent" (click)="openModal(modalContent, card)">
         <img [src]="card.mediaUrl" alt="Media" class="card-img-top">
     </div>
     <ng-template #videoContent>
-     <div class="image-container">
-      <video controls class="card-img-top">
-        <source [src]="card.mediaUrl" type="video/mp4">
-        Tu navegador no soporta el elemento de video.
-      </video>
-     </div>
+      <div class="image-container" (click)="openModal(modalContent, card)">
+        <img [src]="card.mediaUrl" alt="Media" class="card-img-top">
+        <img src="assets/images/play-svgrepo-com.svg" class="play-icon" alt="Play Video Icon">
+      </div>
     </ng-template>
 
   </div>
 </div>
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" style="color: black;">Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="color: black;">
+    <p>Additional Information:</p>
+    <p>Title: {{card?.info}}</p>
+    <p>Description: {{card?.description}}</p>
+    <img [src]="card?.mediaUrl" alt="Media" class="card-img-top">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
+  </div>
+</ng-template>
