@@ -41,16 +41,15 @@ export class HomeComponent implements OnInit {
 
     this.homeService.getRecentPosts().subscribe(
       (data: NASAImage) => {
-        const items = data.collection.items.slice(0, 9);
         
-        items.forEach((nasaImage: NASAImageItem) => {
+        data.collection.items.forEach((nasaImage: NASAImageItem) => {
 
           if (nasaImage.links && nasaImage.links.length > 0) {
             const mediaUrl = this.homeService.extractMediaUrl(nasaImage.links);
             const captionsUrl = this.homeService.extractCaptionsUrl(nasaImage.links);
             const mediaType = this.homeService.determineMediaType(nasaImage);
             
-            if (mediaUrl && mediaType) {
+            if (mediaUrl && mediaType=== 'image') {
               this.cards.push({
                 mediaUrl: mediaUrl,
                 info: nasaImage.data.title || '', 
@@ -67,16 +66,12 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  onSortChanged(sortOption:string): void {
-    this.sortOrder = sortOption as 'recents' | 'popular';
-    this.getPostsRecentsPopular();
-  }
-
   getPostsRecentsPopular(): void {
     this.cards = [];
+
     const handleData = (data: NASAImage) => {
       data.collection.items.forEach((nasaImage: NASAImageItem) => {
-        if (nasaImage.links && nasaImage.links.length > 0) {
+        if (nasaImage.links && nasaImage.links.length > 0 ) {
           const mediaUrl = this.homeService.extractMediaUrl(nasaImage.links);
           const captionsUrl = this.homeService.extractCaptionsUrl(nasaImage.links);
           const mediaType = this.homeService.determineMediaType(nasaImage);
@@ -102,6 +97,7 @@ export class HomeComponent implements OnInit {
       this.homeService.getPopularPosts().subscribe(handleData, handleError);
     }
   }
+  
 
   private decodeToken(token: string): any {
     return JSON.parse(atob(token.split('.')[1]));
@@ -113,6 +109,10 @@ export class HomeComponent implements OnInit {
       sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  optionLogin(){
+    google.accounts.id.prompt();
   }
 
 }

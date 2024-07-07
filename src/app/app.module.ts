@@ -9,6 +9,7 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { SkeletonComponent } from './layouts/skeleton/skeleton.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthModule } from './modules/auth/auth.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule,HttpClientModule
+    SharedModule,HttpClientModule,AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,4 +7,4 @@
 <ng-container *ngIf="showSort">
   <app-sort (sortChanged)="onSortChanged($event)"></app-sort>
 </ng-container>
-<app-cards [cards]="cards"></app-cards>
+<app-cards [cards]="cards" [favoriteShow]="favoriteIcon"></app-cards>

@@ -11,16 +11,16 @@
     <div id="google-btn">
 
     </div>
+    
   </div>
 <div class="news-container">
-  <app-news [cards]="cards" [showFilter]="false" [showInput]="false"
-  (sortChanged)="onSortChanged($event)"
+  <app-news [cards]="cards" [showFilter]="false" [showInput]="false" [showSort]="false"
+  [favoriteIcon]="false"
   ></app-news>
 </div>
 
 <div class="footer">
-  <button class="btn-show-more-post">
-   
+  <button class="btn-show-more-post" (click)="optionLogin()">
     Show more post from <img src="assets/images/nasa-6.svg" alt="nasa icon">
   </button>
 
