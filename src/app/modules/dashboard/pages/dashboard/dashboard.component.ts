@@ -12,11 +12,26 @@ export class DashboardComponent implements OnInit {
   searchText = '';
   filters: { type: string, checked: boolean }[] = [];
   sortOrder: string = '';
-  
+  favoriteMediaUrls: string[] = [];
+  userEmail: string = '';
+
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
+    this.loadFavoriteMediaUrls();
     this.getPosts();
+  }
+
+  loadFavoriteMediaUrls(): void {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      this.userEmail = JSON.parse(loggedInUser).email;
+      const favoriteCardsJson = localStorage.getItem(this.userEmail);
+      if (favoriteCardsJson) {
+        const favoriteCards = JSON.parse(favoriteCardsJson);
+        this.favoriteMediaUrls = favoriteCards.map((card: Card) => card.mediaUrl);
+      }
+    }
   }
 
   getPosts(): void {
@@ -34,11 +49,15 @@ export class DashboardComponent implements OnInit {
           const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
           const mediaType = this.dashboardService.determineMediaType(nasaImage);
           if (mediaUrl && mediaType) {
+            const isFavorite = this.favoriteMediaUrls.includes(mediaUrl);
             this.cards.push({
               mediaUrl,
               info: nasaImage.data.title || '',
               mediaType,
-              captionsUrl
+              captionsUrl,
+              favorite: isFavorite,
+              iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
+            : 'assets/images/heart-like-outline.svg'
             });
           }
         }
@@ -49,7 +68,7 @@ export class DashboardComponent implements OnInit {
       console.error('Error al obtener datos:', error);
     };
 
-    if (this.searchText === '' ) {
+    if (this.searchText === '') {
       this.dashboardService.getRecentPosts().subscribe(handleData, handleError);
     } else {
       this.dashboardService.getSearchPost(this.searchText).subscribe(handleData, handleError);
@@ -63,9 +82,9 @@ export class DashboardComponent implements OnInit {
     } else {
       this.filters.push(filter);
     }
-    if (this.sortOrder === 'recents' || this.sortOrder === 'popular' ) {
+    if (this.sortOrder === 'recents' || this.sortOrder === 'popular') {
       this.getPostsRecentsPopular();
-    } else if (this.searchText !== '' || this.searchText !== undefined || this.searchText !== null) {
+    } else {
       this.getPosts();
     }
   }
@@ -76,8 +95,8 @@ export class DashboardComponent implements OnInit {
     this.getPosts();
   }
 
-  onSortChanged(sortOption:string): void {
-    this.sortOrder = sortOption as 'recents' | 'popular';
+  onSortChanged(sortOption: string): void {
+    this.sortOrder = sortOption;
     this.getPostsRecentsPopular();
   }
 
@@ -96,11 +115,15 @@ export class DashboardComponent implements OnInit {
           const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
           const mediaType = this.dashboardService.determineMediaType(nasaImage);
           if (mediaUrl && mediaType) {
+            const isFavorite = this.favoriteMediaUrls.includes(mediaUrl);
             this.cards.push({
               mediaUrl,
               info: nasaImage.data.title || '',
               mediaType,
-              captionsUrl
+              captionsUrl,
+              favorite: isFavorite,
+              iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
+            : 'assets/images/heart-like-outline.svg'
             });
           }
         }
@@ -117,6 +140,4 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.getPopularPosts().subscribe(handleData, handleError);
     }
   }
-  
-
 }
