@@ -3,11 +3,10 @@
   <p class="lead">
     A beautiful place to see the most recent images and videos from NASA.
   </p>
-  <div class="my-4 ">
+  <div class="my-4 display-change">
    <div id="google-btn">
 
    </div>
-    <button class="btn btn-secondary">Pending</button>
   </div>
   <app-news [cards]="cards" [showFilter]="false" [showInput]="false"
   (sortChanged)="onSortChanged($event)"

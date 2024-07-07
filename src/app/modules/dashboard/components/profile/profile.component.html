@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="profile-card">
+        <div class="photo-wrapper">
+            <img class="profile-photo" [src]="userProfileImg" alt="xx">
+        </div>
+        <div class="profile-info">
+            <h3 class="profile-name">{{name}}</h3>
+            <table class="profile-details">
+                <tbody>
+                    <tr>
+                        <td class="detail-label">Email</td>
+                        <td class="detail-value">{{email}}</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-label">Email Verified</td>
+                        <td class="detail-value">{{emailVerified ? 'si' : 'no'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="profile-link">
+                <button class="btn btn-danger">Sign Out</button>
+            </div>
+        </div>
+    </div>
+</div>

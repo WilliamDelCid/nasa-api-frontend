@@ -8,6 +8,7 @@ import { SearchComponent } from './components/search/search.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { WishListComponent } from './pages/wish-list/wish-list.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { WishListComponent } from './pages/wish-list/wish-list.component';
     FilterComponent,
     SearchComponent,
     DashboardComponent,
-    WishListComponent
+    WishListComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
