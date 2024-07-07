@@ -19,7 +19,7 @@
   gap: 12px;
   flex-direction: column;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .image-container{
@@ -64,9 +64,6 @@
 }
 
 .icon-button {
-  /* position: absolute; */
-  /* top: 5px;
-  right: 5px; */
   background-color: transparent;
   border: none;
   color: red;

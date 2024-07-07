@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NewsComponent } from '@dashboard/components/news/news.component';
+import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '@dashboard/services/dashboard.service';
 import { Card, NASAImage, NASAImageItem } from 'src/app/shared/interfaces/INasa.Interface';
 
@@ -13,7 +12,7 @@ export class DashboardComponent implements OnInit {
   searchText = '';
   filters: { type: string, checked: boolean }[] = [];
   sortOrder: string = '';
-  @ViewChild(NewsComponent) newsComponent!: NewsComponent;
+  
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {

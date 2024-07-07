@@ -4,5 +4,7 @@
 <ng-container *ngIf="showFilter">
   <app-filter (filterChanged)="onFilterChanged($event)"></app-filter>
 </ng-container>
-<app-sort (sortChanged)="onSortChanged($event)"></app-sort>
+<ng-container *ngIf="showSort">
+  <app-sort (sortChanged)="onSortChanged($event)"></app-sort>
+</ng-container>
 <app-cards [cards]="cards"></app-cards>

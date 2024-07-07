@@ -10,6 +10,7 @@ export class NewsComponent implements OnInit {
   @Input() cards: Card[] = [];
   @Input() showFilter: boolean = false;
   @Input() showInput: boolean = false;
+  @Input() showSort: boolean = true;
 
   @Output() filterChanged = new EventEmitter<{ type: string, checked: boolean }>();
   @Output() searchTextChanged = new EventEmitter<string>();
