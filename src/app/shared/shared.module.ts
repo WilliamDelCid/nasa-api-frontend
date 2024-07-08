@@ -5,6 +5,7 @@ import { InputComponent } from './components/input/input.component';
 import { SortComponent } from './components/sort/sort.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     InputComponent,
     SortComponent,
     LoadingComponent,
+    ErrorPageComponent,
   ],
   imports: [
     CommonModule,NgbModalModule
@@ -19,7 +21,7 @@ import { LoadingComponent } from './components/loading/loading.component';
   exports:[
     CardsComponent,
     InputComponent,
-    SortComponent,LoadingComponent
+    SortComponent,LoadingComponent,ErrorPageComponent
   ]
 })
 export class SharedModule { }
