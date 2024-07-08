@@ -4,12 +4,14 @@ import { CardsComponent } from './components/cards/cards.component';
 import { InputComponent } from './components/input/input.component';
 import { SortComponent } from './components/sort/sort.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
     CardsComponent,
     InputComponent,
     SortComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,NgbModalModule
@@ -17,7 +19,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   exports:[
     CardsComponent,
     InputComponent,
-    SortComponent
+    SortComponent,LoadingComponent
   ]
 })
 export class SharedModule { }

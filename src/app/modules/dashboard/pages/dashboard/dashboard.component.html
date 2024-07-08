@@ -4,14 +4,19 @@
     <p class="lead">
       A beautiful place to see the most recent images and videos from NASA.
     </p>
-    <app-news 
-    [cards]="cards"  
-    [showFilter]="true" 
-    [showInput]="true" 
-    (filterChanged)="onFilterChanged($event)" 
-    (searchTextChanged)="onSearchTextChanged($event)"
-    (sortChanged)="onSortChanged($event)"
-    >
-  </app-news>
+    <ng-container *ngIf="loading" >
+      <app-loading></app-loading>
+    </ng-container>
+    <ng-container *ngIf="!loading">
+      <app-news 
+      [cards]="cards"  
+      [showFilter]="true" 
+      [showInput]="true" 
+      (filterChanged)="onFilterChanged($event)" 
+      (searchTextChanged)="onSearchTextChanged($event)"
+      (sortChanged)="onSortChanged($event)"
+      >
+    </app-news>
+    </ng-container>
   </div>
   

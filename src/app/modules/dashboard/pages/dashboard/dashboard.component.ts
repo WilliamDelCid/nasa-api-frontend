@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   sortOrder: string = '';
   favoriteMediaUrls: string[] = [];
   userEmail: string = '';
-
+  loading:boolean = false;
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPosts(): void {
+    this.loading = true;
     this.cards = [];
     const applyFilters = async (nasaImage: NASAImageItem) => {
       const hasFilters = this.filters.some(filter => filter.checked);
@@ -68,6 +69,7 @@ export class DashboardComponent implements OnInit {
           }
         }
       });
+      this.loading = false;
     };
 
     const handleError = (error: any) => {
@@ -107,6 +109,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPostsRecentsPopular(): void {
+    this.loading = true;
     this.cards = [];
     const applyFilters = async (nasaImage: NASAImageItem) => {
       const hasFilters = this.filters.some(filter => filter.checked);
@@ -141,6 +144,8 @@ export class DashboardComponent implements OnInit {
           }
         }
       });
+    this.loading = false;
+
     };
 
     const handleError = (error: any) => {
