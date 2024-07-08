@@ -32,10 +32,8 @@ export class HomeComponent implements OnInit {
       height: '50',
       longtitle: true,
       onsuccess: (resp:any)=>{
-        console.log('Respuesta',resp);
       },
       onfailure: (resp:any)=>{
-        console.log('Respuesta',resp);
       }
     });
 

@@ -64,7 +64,6 @@ export class CardsComponent implements OnInit {
     }
 
     localStorage.setItem(userEmail, JSON.stringify(userWishList));
-    console.log('card', card);
 
 }
 

@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { NASAImage, NASAImageItem } from 'src/app/shared/interfaces/INasa.Interface';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -37,22 +38,50 @@ export class DashboardService {
     return captionsLink?.href;
   }
 
-  determineMediaType(nasaImage: NASAImageItem): 'image' | 'video' | undefined {
-    console.log(nasaImage);
-    
+  determineMediaType(nasaImage: NASAImageItem): Observable<{ type: 'image' | 'video' | undefined, videoUrl?: string }> {
     if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
       const firstData = nasaImage.data[0];
-      return firstData.media_type === 'image' ? 'image' : 'video';
+      const typeVideo = firstData.media_type === 'image' ? 'image' : 'video';
+      
+      if (typeVideo === 'video') {
+        const url = nasaImage.href;
+        return this.getVideo(url).pipe(
+          map(videoUrls => {
+            const firstMp4Url = videoUrls.find(url => url.endsWith('orig.mp4'));
+            return { type: 'video', videoUrl: firstMp4Url };
+          })
+        );
+      }
+      
+      return of({ type: typeVideo });
+      
     } else if (nasaImage.data && !Array.isArray(nasaImage.data)) {
-      return nasaImage.data.media_type === 'image' ? 'image' : 'video';
+      const typeVideo = nasaImage.data.media_type === 'image' ? 'image' : 'video';
+      
+      if (typeVideo === 'video') {
+        const url = nasaImage.href;
+        return this.getVideo(url).pipe(
+          map(videoUrls => {
+            const firstMp4Url = videoUrls.find(url => url.endsWith('orig.mp4'));
+            return { type: 'video', videoUrl: firstMp4Url };
+          })
+        );
+      }
+      
+      return of({ type: typeVideo });
     }
-    return undefined;
+    
+    return of({ type: undefined });
   }
 
-  signOut(){
-    google.accounts.id.disableAutoSelect();
-    sessionStorage.removeItem('loggedInUser');
-    this.route.navigate(['/']);
+  getVideo(collections: string): Observable<string[]> {
+    return this.httpClient.get<string[]>(collections);
   }
+  
+    signOut(){
+      google.accounts.id.disableAutoSelect();
+      sessionStorage.removeItem('loggedInUser');
+      this.route.navigate(['/']);
+    }
 
 }

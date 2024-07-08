@@ -26,7 +26,16 @@
     <p>Additional Information:</p>
     <p>Title: {{card?.info}}</p>
     <p>Description: {{card?.description}}</p>
+    <ng-container *ngIf="card?.mediaType === 'image'">
     <img [src]="card?.mediaUrl" alt="Media" class="card-img-top">
+    </ng-container>
+    <ng-container *ngIf="card?.mediaType === 'video'">
+      <video controls class="card-img-top">
+        <source [src]="card?.urlVideo" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </ng-container>
+    
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>

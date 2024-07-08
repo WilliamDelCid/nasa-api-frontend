@@ -29,7 +29,7 @@ export interface NASAImage {
   export interface Card {
     mediaUrl: string;
     info: string;
-    mediaType: string;
+    mediaType: string | undefined;
     captionsUrl?: string; 
     favorite?: boolean;
     iconFavorite?: string;

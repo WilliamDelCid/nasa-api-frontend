@@ -20,10 +20,7 @@ export class HomeService {
     return this.httpClient.get<NASAImage>(`${this.baseUrl}/asset/?orderby=popular`);
   }
 
-  // getVideo(collections:string):Observable<string[]>{
-  //   return this.httpClient.get<string[]>(collections);
 
-  // }
 
   
   extractMediaUrl(links: any[]): string | undefined {

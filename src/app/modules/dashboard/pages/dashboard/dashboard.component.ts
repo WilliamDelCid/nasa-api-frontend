@@ -36,18 +36,19 @@ export class DashboardComponent implements OnInit {
 
   getPosts(): void {
     this.cards = [];
-    const hasFilters = this.filters.some(filter => filter.checked);
-    const applyFilters = (nasaImage: NASAImageItem) => {
-      const mediaType = this.dashboardService.determineMediaType(nasaImage);
-      return !hasFilters || (mediaType && this.filters.some(filter => filter.type === mediaType && filter.checked));
+    const applyFilters = async (nasaImage: NASAImageItem) => {
+      const hasFilters = this.filters.some(filter => filter.checked);
+      const mediaType = await this.dashboardService.determineMediaType(nasaImage).toPromise();
+      
+      return !hasFilters || (mediaType && this.filters.some(filter => filter.type === mediaType.type && filter.checked));
     };
 
     const handleData = (data: NASAImage) => {
-      data.collection.items.forEach((nasaImage: NASAImageItem) => {
-        if (nasaImage.links && nasaImage.links.length > 0 && applyFilters(nasaImage)) {
+      data.collection.items.forEach(async (nasaImage: NASAImageItem) => {
+        if (nasaImage.links && nasaImage.links.length > 0 &&  await applyFilters(nasaImage)) {
           const mediaUrl = this.dashboardService.extractMediaUrl(nasaImage.links);
           const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
-          const mediaType = this.dashboardService.determineMediaType(nasaImage);
+          const mediaType = await this.dashboardService.determineMediaType(nasaImage).toPromise();
           if (mediaUrl && mediaType) {
             if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
             const firstData = nasaImage.data[0];   
@@ -55,12 +56,13 @@ export class DashboardComponent implements OnInit {
             this.cards.push({
               mediaUrl,
               info: firstData.title || '',
-              mediaType,
+              mediaType: mediaType.type,
               captionsUrl,
               favorite: isFavorite,
               iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
             : 'assets/images/heart-like-outline.svg',
-            description: firstData.description
+            description: firstData.description,
+            urlVideo: mediaType.type === 'video' ? mediaType.videoUrl : ''
             });           
             }
           }
@@ -106,18 +108,20 @@ export class DashboardComponent implements OnInit {
 
   getPostsRecentsPopular(): void {
     this.cards = [];
-    const hasFilters = this.filters.some(filter => filter.checked);
-    const applyFilters = (nasaImage: NASAImageItem) => {
-      const mediaType = this.dashboardService.determineMediaType(nasaImage);
-      return !hasFilters || (mediaType && this.filters.some(filter => filter.type === mediaType && filter.checked));
+    const applyFilters = async (nasaImage: NASAImageItem) => {
+      const hasFilters = this.filters.some(filter => filter.checked);
+      const mediaType = await this.dashboardService.determineMediaType(nasaImage).toPromise();
+      
+      return !hasFilters || (mediaType && this.filters.some(filter => filter.type === mediaType.type && filter.checked));
     };
 
     const handleData = (data: NASAImage) => {
-      data.collection.items.forEach((nasaImage: NASAImageItem) => {
-        if (nasaImage.links && nasaImage.links.length > 0 && applyFilters(nasaImage)) {
+      data.collection.items.forEach(async (nasaImage: NASAImageItem) => {
+        if (nasaImage.links && nasaImage.links.length > 0 &&  await applyFilters(nasaImage)) {
           const mediaUrl = this.dashboardService.extractMediaUrl(nasaImage.links);
           const captionsUrl = this.dashboardService.extractCaptionsUrl(nasaImage.links);
-          const mediaType = this.dashboardService.determineMediaType(nasaImage);
+          const mediaType = await this.dashboardService.determineMediaType(nasaImage).toPromise();
+
           if (mediaUrl && mediaType) {
             if (nasaImage.data && Array.isArray(nasaImage.data) && nasaImage.data.length > 0) {
             const firstData = nasaImage.data[0];   
@@ -125,13 +129,14 @@ export class DashboardComponent implements OnInit {
             this.cards.push({
               mediaUrl,
               info: firstData.title || '',
-              mediaType,
+              mediaType: mediaType.type,
               captionsUrl,
               favorite: isFavorite,
               iconFavorite: isFavorite             ? 'assets/images/heart-like-filled.svg'
             : 'assets/images/heart-like-outline.svg',
-            description: firstData.description
-            });           
+            description: firstData.description,
+            urlVideo: mediaType.type === 'video' ? mediaType.videoUrl : ''
+            });          
             }
           }
         }
