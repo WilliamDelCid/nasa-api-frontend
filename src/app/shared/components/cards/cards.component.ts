@@ -23,6 +23,7 @@ export class CardsComponent implements OnInit {
   }
 
   addToMyWishList(card: Card) {
+    
     const loggedInUser = sessionStorage.getItem('loggedInUser');
 
     if (!loggedInUser) {
@@ -46,12 +47,14 @@ export class CardsComponent implements OnInit {
     if (cardIndex > -1) {
         userWishList[cardIndex].favorite = !userWishList[cardIndex].favorite;
         userWishList[cardIndex].iconFavorite = userWishList[cardIndex].favorite
-            ? 'assets/images/heart-like-filled.svg'
-            : 'assets/images/heart-like-outline.svg';
+            ? 'assets/images/heart-like-outline.svg'
+            : 'assets/images/heart-like-filled.svg';
 
         if (!userWishList[cardIndex].favorite) {
             userWishList.splice(cardIndex, 1);
         }
+        card.favorite = false;
+        card.iconFavorite = 'assets/images/heart-like-outline.svg';
     } else {
         card.favorite = true;
         card.iconFavorite = 'assets/images/heart-like-filled.svg';
@@ -61,6 +64,7 @@ export class CardsComponent implements OnInit {
     }
 
     localStorage.setItem(userEmail, JSON.stringify(userWishList));
+    console.log('card', card);
 
 }
 
